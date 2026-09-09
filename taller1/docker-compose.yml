@@ -1,0 +1,45 @@
+# Taller en clase 1 — MySQL "ejerciciodw" en un contenedor
+#
+# Uso:
+#   1) Coloca este archivo y init_ejerciciodw.sql en la misma carpeta.
+#   2) Abre una terminal en esa carpeta y ejecuta:  docker compose up -d
+#   3) La base "ejerciciodw" queda creada y poblada automáticamente
+#      (MySQL ejecuta una sola vez, en el primer arranque, todo lo que
+#      esté en /docker-entrypoint-initdb.d/, en orden alfabético).
+#   4) MySQL queda escuchando en localhost:3306 (usuario root, password root).
+#   5) Adminer (interfaz web para ver tablas sin instalar nada más)
+#      queda disponible en http://localhost:8080
+#
+# Para borrar todo y empezar de cero (por ejemplo si editas el .sql):
+#   docker compose down -v
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ejerciciodw-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ejerciciodw
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init_ejerciciodw.sql:/docker-entrypoint-initdb.d/01-init_ejerciciodw.sql:ro
+      - ejerciciodw_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  adminer:
+    image: adminer:latest
+    container_name: ejerciciodw-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+volumes:
+  ejerciciodw_data:

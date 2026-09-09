@@ -1,0 +1,6 @@
+mysql-data/
+*.log
+*.knwf.bak
+.metadata/
+.DS_Store
+.vscode/
