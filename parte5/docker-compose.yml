@@ -1,0 +1,43 @@
+# Parte 5 - Taller individual
+# Sirve PostgreSQL y MongoDB (las 2 fuentes nuevas) para complementar
+# el MySQL de taller1, que ya debe estar corriendo por separado.
+#
+# Uso:
+#   cd parte5
+#   docker compose up -d
+#
+# Puertos:
+#   PostgreSQL -> localhost:5432 (usuario: postgres, password: postgres, db: clientes_db)
+#   MongoDB    -> localhost:27017 (sin autenticacion, db: ejerciciodw)
+#
+# Para borrar todo y empezar de cero:
+#   docker compose down -v
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: parte5-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clientes_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_init:/docker-entrypoint-initdb.d:ro
+      - parte5_postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:7
+    container_name: parte5-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_init:/docker-entrypoint-initdb.d:ro
+      - parte5_mongo_data:/data/db
+
+volumes:
+  parte5_postgres_data:
+  parte5_mongo_data:
