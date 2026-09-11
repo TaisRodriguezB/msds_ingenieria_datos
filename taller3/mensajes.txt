@@ -1,0 +1,4 @@
+Hola Kafka
+Mensaje 1
+Prueba de streaming
+Nuevo mensaje

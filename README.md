@@ -11,14 +11,20 @@ msds_ingenieria_datos/
 │   ├── docker-compose.yml         # Levanta MySQL 8 + Adminer con la base ya inicializada
 │   ├── descuentos_categoria.csv   # Segunda fuente de datos (referencia, no se usa para cargar)
 │   └── etl_taller1.sql            # Solución del ETL (Parte 4 del taller)
-└── parte5/
-    ├── docker-compose.yml         # Levanta PostgreSQL + MongoDB (fuentes 3 y 4)
-    ├── postgres_init/01_clientes.sql   # Dimensión clientes (PostgreSQL)
-    ├── mongo_init/init.js              # Dimensión canal de venta (MongoDB)
-    ├── calendario.csv                  # Dimensión tiempo (CSV)
-    ├── bridge_ventas_cliente_canal.sql # Tabla puente venta-cliente-canal (MySQL)
-    ├── Taller1_Parte5.knwf              # Workflow de KNIME (ETL completo)
-    └── Informe-Ejecutivo-Taller1-Parte5.pdf  # Informe ejecutivo del proceso
+├── parte5/
+│   ├── docker-compose.yml         # Levanta PostgreSQL + MongoDB (fuentes 3 y 4)
+│   ├── postgres_init/01_clientes.sql   # Dimensión clientes (PostgreSQL)
+│   ├── mongo_init/init.js              # Dimensión canal de venta (MongoDB)
+│   ├── calendario.csv                  # Dimensión tiempo (CSV)
+│   ├── bridge_ventas_cliente_canal.sql # Tabla puente venta-cliente-canal (MySQL)
+│   ├── Taller1_Parte5.knwf              # Workflow de KNIME (ETL completo)
+│   └── Informe-Ejecutivo-Taller1-Parte5.pdf  # Informe ejecutivo del proceso
+└── taller3/
+    ├── docker-compose.yml               # Kafka + Zookeeper + Kafka-UI + Zeppelin
+    ├── dag_etl_faker_mysql_taller3.py   # DAG de Airflow: Faker -> MySQL (bloque "DAG + DB")
+    ├── ejercicio1.py                    # Ejercicio 1 (Spark DataFrame), versión PySpark verificada
+    ├── ejercicio2.py                    # Ejercicio 2 (Spark SQL sobre bank-full.csv), versión PySpark verificada
+    └── mensajes.txt                     # Mensajes de ejemplo para el productor de Kafka
 ```
 
 ## Taller 1 — cómo correrlo
@@ -95,3 +101,13 @@ El flujo completo (extracción de las 4 fuentes, transformación con nodos `Join
 ### Informe ejecutivo
 
 El proceso completo, el diseño del DW, los problemas reales encontrados durante la construcción (y su solución) y la verificación final están documentados en [`parte5/Informe-Ejecutivo-Taller1-Parte5.pdf`](parte5/Informe-Ejecutivo-Taller1-Parte5.pdf).
+
+## Taller 3 — Grupo 15 (Gandhi Mora, Tais Rodríguez)
+
+```bash
+cd taller3
+docker compose up -d          # Kafka + Zookeeper + Kafka-UI + Zeppelin
+# copia dag_etl_faker_mysql_taller3.py a la carpeta dags/ de tu stack airflow_intro_mysql
+```
+
+`ejercicio1.py` y `ejercicio2.py` son la versión PySpark (verificada localmente) de los notebooks `ejercicio1.zpln`/`ejercicio2.zpln`; para trabajar dentro de Zeppelin, importa los `.zpln` originales. `ejercicio2.py` espera el dataset público UCI "Bank Marketing" (`bank-full.csv`, descargable con el `wget` del propio ejercicio) en la misma carpeta. Guía completa paso a paso, con los resultados esperados de cada bloque (Airflow, Spark, Kafka) y el detalle de qué se ejecutó/verificó de forma automática vs. qué queda para correr en tu propio entorno Docker: ver el PDF entregado junto con este repositorio.
