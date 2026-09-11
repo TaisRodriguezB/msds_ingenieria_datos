@@ -1,0 +1,145 @@
+﻿{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark.sql import SparkSession\nfrom pyspark.sql import Row\n\n# Crear sesión de Spark (Zeppelin ya tiene una activa)\nspark = SparkSession.builder.appName(\"ZeppelinDF\").getOrCreate()\n\n# Crear datos manualmente\ndata = [\n    Row(id=1, producto=\"Celular\", cantidad=2, precio=500, fecha=\"2025-01-01\"),\n    Row(id=2, producto=\"Laptop\", cantidad=1, precio=1200, fecha=\"2025-01-02\"),\n    Row(id=3, producto=\"Tablet\", cantidad=3, precio=300, fecha=\"2025-01-03\"),\n    Row(id=4, producto=\"Celular\", cantidad=1, precio=500, fecha=\"2025-01-04\"),\n    Row(id=5, producto=\"Laptop\", cantidad=2, precio=1200, fecha=\"2025-01-05\")\n]\n\n# Convertir a DataFrame\ndf = spark.createDataFrame(data)\n\n# Mostrar datos\ndf.show()",
+      "user": "anonymous",
+      "dateUpdated": "2025-02-01T05:11:18+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---+--------+--------+------+----------+\n| id|producto|cantidad|precio|     fecha|\n+---+--------+--------+------+----------+\n|  1| Celular|       2|   500|2025-01-01|\n|  2|  Laptop|       1|  1200|2025-01-02|\n|  3|  Tablet|       3|   300|2025-01-03|\n|  4| Celular|       1|   500|2025-01-04|\n|  5|  Laptop|       2|  1200|2025-01-05|\n+---+--------+--------+------+----------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=10",
+              "$$hashKey": "object:13981"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=11",
+              "$$hashKey": "object:13982"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=12",
+              "$$hashKey": "object:13983"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738385898772_454216435",
+      "id": "paragraph_1738385898772_454216435",
+      "dateCreated": "2025-02-01T04:58:18+0000",
+      "dateStarted": "2025-02-01T05:11:18+0000",
+      "dateFinished": "2025-02-01T05:11:20+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:13903"
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import col, sum\n\nventas_por_producto = df.groupBy(\"producto\").agg(sum(col(\"cantidad\") * col(\"precio\")).alias(\"total_ventas\"))\nventas_por_producto.show()",
+      "user": "anonymous",
+      "dateUpdated": "2025-02-01T05:11:20+0000",
+      "progress": 100,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+------------+\n|producto|total_ventas|\n+--------+------------+\n| Celular|        1500|\n|  Laptop|        3600|\n|  Tablet|         900|\n+--------+------------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=13",
+              "$$hashKey": "object:14049"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=14",
+              "$$hashKey": "object:14050"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738385974164_82475316",
+      "id": "paragraph_1738385974164_82475316",
+      "dateCreated": "2025-02-01T04:59:34+0000",
+      "dateStarted": "2025-02-01T05:11:20+0000",
+      "dateFinished": "2025-02-01T05:11:26+0000",
+      "status": "FINISHED",
+      "$$hashKey": "object:13904"
+    }
+  ],
+  "name": "ejercicio1",
+  "id": "2KN2RCCPX",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.11.2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {
+    "isRunning": false
+  },
+  "path": "/ejercicio1"
+}

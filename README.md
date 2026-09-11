@@ -22,7 +22,9 @@ msds_ingenieria_datos/
 └── taller3/
     ├── docker-compose.yml               # Kafka + Zookeeper + Kafka-UI + Zeppelin
     ├── dag_etl_faker_mysql_taller3.py   # DAG de Airflow: Faker -> MySQL (bloque "DAG + DB")
+    ├── ejercicio1.zpln                  # Notebook original de Zeppelin (Ejercicio 1)
     ├── ejercicio1.py                    # Ejercicio 1 (Spark DataFrame), versión PySpark verificada
+    ├── ejercicio2.zpln                  # Notebook original de Zeppelin (Ejercicio 2)
     ├── ejercicio2.py                    # Ejercicio 2 (Spark SQL sobre bank-full.csv), versión PySpark verificada
     └── mensajes.txt                     # Mensajes de ejemplo para el productor de Kafka
 ```
@@ -110,4 +112,4 @@ docker compose up -d          # Kafka + Zookeeper + Kafka-UI + Zeppelin
 # copia dag_etl_faker_mysql_taller3.py a la carpeta dags/ de tu stack airflow_intro_mysql
 ```
 
-`ejercicio1.py` y `ejercicio2.py` son la versión PySpark (verificada localmente) de los notebooks `ejercicio1.zpln`/`ejercicio2.zpln`; para trabajar dentro de Zeppelin, importa los `.zpln` originales. `ejercicio2.py` espera el dataset público UCI "Bank Marketing" (`bank-full.csv`, descargable con el `wget` del propio ejercicio) en la misma carpeta. Guía completa paso a paso, con los resultados esperados de cada bloque (Airflow, Spark, Kafka) y el detalle de qué se ejecutó/verificó de forma automática vs. qué queda para correr en tu propio entorno Docker: ver el PDF entregado junto con este repositorio.
+`ejercicio1.zpln` y `ejercicio2.zpln` son los notebooks originales de Zeppelin (impórtalos directamente en tu instancia para correrlos ahí); `ejercicio1.py` y `ejercicio2.py` son la misma lógica en PySpark plano, verificada de forma independiente en un entorno local. `ejercicio2.py`/`ejercicio2.zpln` esperan el dataset público UCI "Bank Marketing" (`bank-full.csv`, descargable con el `wget` del propio ejercicio). Guía completa paso a paso, con los resultados esperados de cada bloque (Airflow, Spark, Kafka) y el detalle de qué se ejecutó/verificó de forma automática vs. qué queda para correr en tu propio entorno Docker: ver el PDF entregado junto con este repositorio.

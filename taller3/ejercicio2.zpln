@@ -1,0 +1,440 @@
+﻿{
+  "paragraphs": [
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sh",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sh",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738386981280_2031441038",
+      "id": "paragraph_1738386981280_2031441038",
+      "dateCreated": "2025-02-01T05:16:21+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:10733",
+      "text": "%sh\nwget http://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip\nunzip bank.zip",
+      "dateUpdated": "2025-02-01T05:19:02+0000",
+      "dateFinished": "2025-02-01T05:19:09+0000",
+      "dateStarted": "2025-02-01T05:19:02+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "--2025-02-01 05:19:08--  http://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank.zip\nResolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.252\nConnecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.252|:80... connected.\nHTTP request sent, awaiting response... 200 OK\nLength: unspecified\nSaving to: ‘bank.zip’\n\n     0K .......... .......... .......... .......... ..........  180K\n    50K .......... .......... .......... .......... ..........  379K\n   100K .......... .......... .......... .......... .......... 4.03M\n   150K .......... .......... .......... .......... ..........  506K\n   200K .......... .......... .......... .......... .......... 1.15M\n   250K .......... .......... .......... .......... .......... 76.7M\n   300K .......... .......... .......... .......... ..........  319K\n   350K .......... .......... .......... .......... ..........  150M\n   400K .......... .......... .......... .......... ..........  226M\n   450K .......... .......... .......... .......... ..........  220M\n   500K .......... .......... .......... .......... .......... 82.6M\n   550K .......... .....                                        200M=0.7s\n\n2025-02-01 05:19:09 (784 KB/s) - ‘bank.zip’ saved [579043]\n\nArchive:  bank.zip\n  inflating: bank-full.csv           \n  inflating: bank-names.txt          \n  inflating: bank.csv                \n"
+          }
+        ]
+      }
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738386997130_399043352",
+      "id": "paragraph_1738386997130_399043352",
+      "dateCreated": "2025-02-01T05:16:37+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:10817",
+      "text": "val bankText = sc.textFile(\"bank-full.csv\")\ncase class Bank(age:Integer, job:String, marital : String, education : String, balance : Integer)\n\n// split each line, filter out header (starts with \"age\"), and map it into Bank case class\nval bank = bankText.map(s=>s.split(\";\")).filter(s=>s(0)!=\"\\\"age\\\"\").map(\n    s=>Bank(s(0).toInt,\n            s(1).replaceAll(\"\\\"\", \"\"),\n            s(2).replaceAll(\"\\\"\", \"\"),\n            s(3).replaceAll(\"\\\"\", \"\"),\n            s(5).replaceAll(\"\\\"\", \"\").toInt\n        )\n)\n\n// convert to DataFrame and create temporal table\nbank.toDF().registerTempTable(\"bank\")\n",
+      "dateUpdated": "2025-02-01T05:20:07+0000",
+      "dateFinished": "2025-02-01T05:20:16+0000",
+      "dateStarted": "2025-02-01T05:20:07+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[33mwarning: \u001b[0mone deprecation (since 2.0.0); for details, enable `:setting -deprecation' or `:replay -deprecation'\n\u001b[1m\u001b[34mbankText\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.rdd.RDD[String]\u001b[0m = bank-full.csv MapPartitionsRDD[39] at textFile at <console>:28\ndefined class Bank\n\u001b[1m\u001b[34mbank\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.rdd.RDD[Bank]\u001b[0m = MapPartitionsRDD[42] at map at <console>:32\n"
+          }
+        ]
+      }
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "age": "string",
+                      "count(1)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "age",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "count(1)",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=15",
+              "$$hashKey": "object:12092"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=16",
+              "$$hashKey": "object:12093"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738387178838_1930312609",
+      "id": "paragraph_1738387178838_1930312609",
+      "dateCreated": "2025-02-01T05:19:38+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:10932",
+      "text": "%sql\nselect age, count(1) from bank group by age order by age",
+      "dateUpdated": "2025-02-01T05:21:15+0000",
+      "dateFinished": "2025-02-01T05:20:58+0000",
+      "dateStarted": "2025-02-01T05:20:52+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "age\tcount(1)\n18\t12\n19\t35\n20\t50\n21\t79\n22\t129\n23\t202\n24\t302\n25\t527\n26\t805\n27\t909\n28\t1038\n29\t1185\n30\t1757\n31\t1996\n32\t2085\n33\t1972\n34\t1930\n35\t1894\n36\t1806\n37\t1696\n38\t1466\n39\t1487\n40\t1355\n41\t1291\n42\t1242\n43\t1161\n44\t1136\n45\t1216\n46\t1175\n47\t1088\n48\t997\n49\t994\n50\t939\n51\t936\n52\t911\n53\t891\n54\t811\n55\t806\n56\t778\n57\t828\n58\t740\n59\t770\n60\t596\n61\t147\n62\t80\n63\t77\n64\t74\n65\t59\n66\t63\n67\t54\n68\t36\n69\t44\n70\t67\n71\t54\n72\t52\n73\t44\n74\t37\n75\t39\n76\t32\n77\t44\n78\t30\n79\t25\n80\t31\n81\t17\n82\t19\n83\t22\n84\t9\n85\t5\n86\t9\n87\t4\n88\t2\n89\t3\n90\t2\n92\t2\n93\t2\n94\t1\n95\t2\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\nselect marital, count(1) from bank group by marital\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-02-01T05:21:45+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "marital": "string",
+                      "count(1)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=17",
+              "$$hashKey": "object:12594"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=18",
+              "$$hashKey": "object:12595"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738387252718_1570059599",
+      "id": "paragraph_1738387252718_1570059599",
+      "dateCreated": "2025-02-01T05:20:52+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:11056",
+      "dateFinished": "2025-02-01T05:21:45+0000",
+      "dateStarted": "2025-02-01T05:21:42+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "marital\tcount(1)\ndivorced\t5207\nmarried\t27214\nsingle\t12790\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\nselect job, count(1) from bank group by job order by count(1) desc\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-02-01T05:21:55+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "job": "string",
+                      "count(1)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=19",
+              "$$hashKey": "object:13276"
+            },
+            {
+              "jobUrl": "http://0da5bb357a12:4040/jobs/job?id=20",
+              "$$hashKey": "object:13277"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738387302058_1108609747",
+      "id": "paragraph_1738387302058_1108609747",
+      "dateCreated": "2025-02-01T05:21:42+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:12111",
+      "dateFinished": "2025-02-01T05:21:55+0000",
+      "dateStarted": "2025-02-01T05:21:52+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "job\tcount(1)\nblue-collar\t9732\nmanagement\t9458\ntechnician\t7597\nadmin.\t5171\nservices\t4154\nretired\t2264\nself-employed\t1579\nentrepreneur\t1487\nunemployed\t1303\nhousemaid\t1240\nstudent\t938\nunknown\t288\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%sql\n",
+      "user": "anonymous",
+      "dateUpdated": "2025-02-01T05:21:52+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1738387312570_665932118",
+      "id": "paragraph_1738387312570_665932118",
+      "dateCreated": "2025-02-01T05:21:52+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:12622"
+    }
+  ],
+  "name": "ejercicio2",
+  "id": "2KNACFHPC",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.11.2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/ejercicio2"
+}
